@@ -68,3 +68,7 @@ curl http://localhost:8000/health
 See [`.harness/reviews/`](.harness/reviews/) for the full chain of evidence from the
 demonstration run — feature prompt → spec → sprint contract → generated code →
 evaluator verdict → archived run log.
+
+## License
+
+[MIT](LICENSE)
