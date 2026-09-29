@@ -31,12 +31,20 @@ NAME                                             IMAGE                          
 claude-code-harness-assessment-storeops-api-1    claude-code-harness-assessment-storeops-api   Up About a minute (healthy)   0.0.0.0:8000->8000/tcp
 ```
 
-### Screenshot
+### Screenshots
 
-[`​.harness/reviews/deployment-evidence/docker-swagger-ui.png`](.harness/reviews/deployment-evidence/docker-swagger-ui.png)
-— the containerized app's live Swagger UI at `http://localhost:8000/docs`, showing
-`POST /api/activities/sla-sweep` (the harness-generated endpoint) alongside the baseline
-endpoints.
+[`.harness/reviews/deployment-evidence/docker-live-sla-sweep.png`](.harness/reviews/deployment-evidence/docker-live-sla-sweep.png)
+— **the feature actually responding**: a real `fetch()` sequence run from a browser
+against the live container (not a mock, not a unit test) — create a breaching task, call
+`POST /api/activities/sla-sweep`, then `GET /api/alerts` — with the real JSON responses
+rendered and captured in one screenshot. Shows `HTTP 201` → `HTTP 200` with
+`{"breached":["task-3"],...}` → `HTTP 200` with the resulting `SLA_BREACH` notification
+object, all against `http://localhost:8000`, the container's exposed port.
+
+[`.harness/reviews/deployment-evidence/docker-swagger-ui.png`](.harness/reviews/deployment-evidence/docker-swagger-ui.png)
+— supporting evidence: the containerized app's live Swagger UI at
+`http://localhost:8000/docs`, showing `POST /api/activities/sla-sweep` (the
+harness-generated endpoint) alongside the baseline endpoints.
 
 ### Live API call transcript (against the container, port 8000)
 
