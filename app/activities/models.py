@@ -39,6 +39,9 @@ class Task(BaseModel):
     programme_id: str | None = None
     owner_id: str
     assignee_id: str | None = None
+    due_at: datetime | None = None
+    sla_notified_at: datetime | None = None
+    sla_escalated_at: datetime | None = None
     created_at: datetime = Field(default_factory=lambda: datetime.now(UTC))
     updated_at: datetime = Field(default_factory=lambda: datetime.now(UTC))
 
@@ -50,6 +53,7 @@ class TaskCreate(BaseModel):
     category: TaskCategory = TaskCategory.GENERAL
     programme_id: str | None = None
     assignee_id: str | None = None
+    due_at: datetime | None = None
 
 
 class TaskUpdate(BaseModel):
@@ -57,3 +61,8 @@ class TaskUpdate(BaseModel):
     priority: TaskPriority | None = None
     category: TaskCategory | None = None
     assignee_id: str | None = None
+
+
+class SlaSweepResult(BaseModel):
+    breached: list[str]
+    escalated: list[str]

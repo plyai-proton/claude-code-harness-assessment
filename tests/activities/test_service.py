@@ -4,15 +4,11 @@ import pytest
 
 from app.activities import service
 from app.activities.models import TaskCreate
-from app.activities.repository import activity_repository
 from app.shared.errors import ForbiddenError, ValidationError
 from app.staff.models import StaffRole, User
 
-
-@pytest.fixture(autouse=True)
-def _reset_repository() -> None:
-    activity_repository._tasks.clear()
-    activity_repository._next_id = 1
+# Repository reset between tests is handled by tests/conftest.py's autouse
+# _reset_module_state fixture.
 
 
 def _user(role: StaffRole = StaffRole.ASSOCIATE, user_id: str = "user-2") -> User:

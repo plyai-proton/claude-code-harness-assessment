@@ -56,5 +56,10 @@ class StaffRepository:
             return None
         return self._users.get(auth_token.user_id)
 
+    def list_by_store_and_role(self, store_id: str, role: StaffRole) -> list[User]:
+        return [
+            u for u in self._users.values() if u.store_id == store_id and u.role == role
+        ]
+
 
 staff_repository = StaffRepository()

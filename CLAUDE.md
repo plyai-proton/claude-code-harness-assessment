@@ -143,6 +143,6 @@ refinement over time.
 | `.harness/agents/` | `planner.agent.md`, `generator.agent.md`, `evaluator.agent.md`, `monitor.agent.md` |
 | `.harness/skills/` | All skill files, one named subdirectory per skill (e.g. `app-context/SKILL.md`) |
 | `.harness/output/` | Working files for the run in progress: `spec.md`, `sprint-N-contract.md`, `generator-summary.md`, `evaluator-feedback.md`, `escalation.md`. Gitignored — ephemeral. |
-| `.harness/reviews/` | Archived, permanent record per sprint: `sprint-N-evaluator-feedback.md`, `sprint-N-generator-summary.md`, `sprint-N-run-log.md`. Committed — the governance audit trail. |
+| `.harness/reviews/` | Archived, permanent record: `spec.md` and `sprint-N-contract.md` (copied once per run, by whichever step finalizes the run), plus `sprint-N-evaluator-feedback.md`, `sprint-N-generator-summary.md`, `sprint-N-run-log.md` per sprint. Committed — the governance audit trail. |
 | `app/` | StoreOps source code (`activities/`, `programmes/`, `staff/`, `alerts/`, `shared/`; `reports/` added by a future harness run) |
 | `tests/` | Test files, mirroring `app/`'s module structure |

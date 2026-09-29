@@ -5,7 +5,7 @@ app.staff.repository, to look up user/role information.
 from __future__ import annotations
 
 from app.shared.errors import UnauthorizedError
-from app.staff.models import User
+from app.staff.models import StaffRole, User
 from app.staff.repository import staff_repository
 
 
@@ -18,3 +18,7 @@ def authenticate(token: str) -> User:
     if user is None:
         raise UnauthorizedError("Invalid or missing authentication token")
     return user
+
+
+def list_users_by_role(store_id: str, role: StaffRole) -> list[User]:
+    return staff_repository.list_by_store_and_role(store_id, role)

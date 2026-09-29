@@ -7,7 +7,7 @@ from typing import Annotated
 from fastapi import APIRouter, Depends
 
 from app.activities import service
-from app.activities.models import Task, TaskCreate, TaskStatus, TaskUpdate
+from app.activities.models import SlaSweepResult, Task, TaskCreate, TaskStatus, TaskUpdate
 from app.shared.auth import get_current_user
 from app.staff.models import User
 
@@ -28,6 +28,11 @@ def list_activities(
 @router.post("", response_model=Task, status_code=201)
 def create_activity(payload: TaskCreate, user: CurrentUser) -> Task:
     return service.create_activity(payload, store_id=user.store_id, owner=user)
+
+
+@router.post("/sla-sweep", response_model=SlaSweepResult)
+def run_sla_sweep(user: CurrentUser, grace_period_minutes: int = 60) -> SlaSweepResult:
+    return service.run_sla_breach_sweep(user.store_id, grace_period_minutes=grace_period_minutes)
 
 
 @router.get("/{task_id}", response_model=Task)
