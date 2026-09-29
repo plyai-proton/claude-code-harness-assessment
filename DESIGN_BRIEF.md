@@ -166,6 +166,29 @@ fixed before the Evaluator ever saw the code, so the Evaluator's real verdict wa
 `PASS` at 100/100 (`sprint-1-evaluator-feedback.md`) — but the routing logic that would
 have fired on the earlier, buggy version is the same logic, exercised the same way.
 
+### Skill file depth vs. token budget
+
+Every agent's context-scoping strategy (`CLAUDE.md` § Context scoping) is only affordable
+because the skill files it reads are short and StoreOps-specific rather than exhaustive.
+Concretely: `architecture-principles/SKILL.md` (the largest shared file) is roughly 900
+tokens; a Generator attempt reads it plus `app-context`, `coding-conventions`, and
+`how-to-test` — four files totaling under 4k tokens, versus the sprint contract and diff
+itself, which typically dominate the actual cost (`sprint-1-run-log.md` estimates ~7.1k
+total for the Generator's attempt, of which skill files are under half). This is a
+deliberate trade-off, not an accident: a more exhaustive skill file — one that tried to
+enumerate every edge case a rule might ever need — would cost proportionally more on
+*every single invocation*, including the large majority of sprints it's irrelevant to,
+in exchange for marginal benefit on the rare sprint where the extra case actually
+applies. The bet is that a short, concrete file with one or two sharp examples (see
+`how-to-test/SKILL.md`'s single weak/strong test pair) generalizes better per token spent
+than a long file trying to be exhaustive — and that when a skill file turns out to be
+under-specified for a real case, `.harness/reviews/`'s quality-trend notes are the
+mechanism for catching that and growing the file precisely where it's needed, rather than
+front-loading depth speculatively. This is why `monitor.agent.md` requires an estimated
+token cost in every `run-log.md`: without that number recorded per sprint, a skill file
+that's quietly grown too deep (and started costing more than its marginal check-quality
+justifies) would be invisible until someone happened to compare invocations by hand.
+
 ### Escalation path
 
 Triggers after 3 consecutive `FAIL` verdicts on the same sprint contract

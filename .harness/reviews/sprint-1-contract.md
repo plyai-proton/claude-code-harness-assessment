@@ -1,5 +1,7 @@
 # Sprint 1 Contract — SLA Breach Alerting
 
+**Source**: `spec.md`'s sprint contract list (this is the sole sprint for this run).
+
 ## Goal
 
 Implement a triggerable SLA-breach sweep for `activities` that notifies the assigned

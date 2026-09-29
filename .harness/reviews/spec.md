@@ -1,5 +1,7 @@
 # Spec — SLA Breach Alerting
 
+**Source**: `PROMPT.md` (the `@planner` message that invoked this harness run).
+
 ## Feature summary
 
 When a `HIGH` or `CRITICAL` priority `Task` passes its due date without reaching `DONE`,
